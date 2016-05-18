@@ -9,15 +9,19 @@
   },
   "devDependencies": {
     "should": "^8.3.1",
+    "mocha": "^2.4.5",
     "websocket-bench": "^0.2.0"
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha test.js"
+    "test": "NODE_ENV=test mocha test.js"
   },
   "author": {
     "name": "Brigitte Jellinek",
     "email": "brigitte.jellinek@fh-salzburg.ac.at"
+  },
+  "engines": {
+    "node": "6.2.0"
   },
   "license": "MIT"
 }

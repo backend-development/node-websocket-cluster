@@ -9,7 +9,7 @@ module.exports = {
     * @param {done} callback function(err) {}
     */
    onConnect : function(client, done) {
-     client.emit('chat message', { msg: 'connect ' + random_message() });
+     client.emit('chat message', 'connect ' + random_message() );
      done();
    },
 
@@ -19,7 +19,7 @@ module.exports = {
     * @param {done} callback function(err) {}
     */
    sendMessage : function(client, done) {
-     client.emit('chat message', { msg: 'send ' + random_message() });
+     client.emit('chat message', 'send ' + random_message() );
      done();
    }
 

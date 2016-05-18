@@ -4,26 +4,31 @@ https://blooming-reef-48511.herokuapp.com/
 
 ## run locally
 
-  npm install
+    npm install
 
 before starting the app with
 
 
-  node index.js
+    node index.js
 
 
 for testing, you need to also install mocha and should.js
 
-  sudo npm -g install mocha
-  sudo npm -g install should
-  npm test
+    sudo npm -g install should
+    sudo npm -g install should
+    npm test
 
+
+## benchmark
+
+    sudo npm -g install websocket-bench
+    websocket-bench -t socket.io -a 200 -c 100 -w 2 -g websocket-bench-generator.js -m 10 ws://localhost:5500
 
 ## deploy to heroku
 
-  heroku create
-  git push heroku master
-  heroku open
+    heroku create
+    git push heroku master
+    heroku open
 
 
 ## sources

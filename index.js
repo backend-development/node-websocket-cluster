@@ -1,10 +1,11 @@
 "use strict";
 
+const v8 = require('v8');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const port = process.env.PORT || 5000;
+const port    = process.env.PORT || ( process.env.NODE_ENV == 'test' ? 5555 : 5500 );
 
 app.use(express.static('public'));
 
@@ -14,15 +15,20 @@ http.listen(port, function(){
 
 let messages = [];
 
-process.on( "SIGHUP", function() {
-  console.log(`there are ${messages.length} messages in the history`);
-});
+function log_status() {
+  let used_heap_size = v8.getHeapStatistics()['used_heap_size'];
+  used_heap_size = Math.floor( used_heap_size / 1024 ); // kb
+  used_heap_size = Math.floor( used_heap_size / 1024 ); // mb
+  console.log(`${messages.length} chat messages from ${io.engine.clientsCount} clients for a used heap size of ${used_heap_size} MB`);
+}
 
+process.on( "SIGHUP", log_status );
 process.on( "SIGINT", function() {
-  console.log(`stopping after ${messages.length}`);
+  log_status();
   process.exit();
 });
 
+setInterval( log_status, 1000 * 2 );
 
 io.on('connection', function(socket){
   // a new user connected:
@@ -32,8 +38,7 @@ io.on('connection', function(socket){
   }
 
   // store and echo back messages
-  socket.on('chat message', function(data){
-    let msg = data.msg;
+  socket.on('chat message', function(msg){
     messages.push( msg );
     // console.log(`got '${msg}' from ${socket.id}`);
     io.emit('chat message', msg);
