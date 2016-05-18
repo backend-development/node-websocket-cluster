@@ -15,7 +15,6 @@ describe("Auction Server",function(){
   it('Should echo chat massages back to user', function(done){
     var client1 = io.connect(socketURL, options);
     client1.on('connect', function(data){
-      console.log(data);
       client1.emit('chat message', 'hello world 1');
       client1.on('chat message', function(data){
         data.should.equal('hello world 1');
@@ -32,7 +31,6 @@ describe("Auction Server",function(){
 
       client2.on('connect', function(data){
         client2.on('chat message', function(data){
-      console.log(data);
           data.should.equal('hello world 1');
           client1.disconnect();
           client2.disconnect();
