@@ -1,14 +1,15 @@
 {
-  "name": "node-websocket-example",
+  "name": "node-websocket-cluster-example",
   "version": "1.0.0",
-  "description": "a node app that serves static html over http and handles websockets",
+  "description": "a node app that handles websockets and saves some state",
   "main": "index.js",
   "dependencies": {
     "express": "^4.13.4",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
-    "should": "^8.3.1"
+    "should": "^8.3.1",
+    "websocket-bench": "^0.2.0"
   },
   "scripts": {
     "start": "node index.js",
