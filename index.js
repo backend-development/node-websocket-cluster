@@ -19,7 +19,8 @@ function log_status() {
   let used_heap_size = v8.getHeapStatistics()['used_heap_size'];
   used_heap_size = Math.floor( used_heap_size / 1024 ); // kb
   used_heap_size = Math.floor( used_heap_size / 1024 ); // mb
-  console.log(`${messages.length} chat messages from ${io.engine.clientsCount} clients for a used heap size of ${used_heap_size} MB`);
+  let msg = `${messages.length} chat messages from ${io.engine.clientsCount} clients, ${used_heap_size} MB used heap`;
+  io.emit('chat message', msg);
 }
 
 process.on( "SIGHUP", log_status );
@@ -28,7 +29,7 @@ process.on( "SIGINT", function() {
   process.exit();
 });
 
-setInterval( log_status, 1000 * 2 );
+setInterval( log_status, 1000 * 30 );
 
 io.on('connection', function(socket){
   // a new user connected:
